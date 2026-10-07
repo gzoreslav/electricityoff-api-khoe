@@ -273,11 +273,17 @@ async function fetchWithUkrProxy(url: string, method: string = 'GET', options = 
   }
 
   const proxyUrl = `${LEGACY_HTML_PROXY}?useProxy=1&url=${encodeURIComponent(url)}`;
-  return axios.get(proxyUrl, {
-    timeout: 110000,
-    responseType: 'text',
-    ...options,
-  });
+  try {
+    return await axios.get(proxyUrl, {
+      timeout: 45000,
+      responseType: 'text',
+      ...options,
+    });
+  } catch (error) {
+    const status = axios.isAxiosError(error) ? error.response?.status : undefined;
+    const message = error instanceof Error ? error.message : 'request failed';
+    throw new Error(`Kharkiv fetch failed (${status ?? message}) for ${url}`);
+  }
 }
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

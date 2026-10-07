@@ -50,11 +50,10 @@ export class KhoeApi {
   }
 
   async fetchAllNewsHeaders(): Promise<KhoeNewsHeaderItem[]> {
-    const results = await Promise.all([
-      this.fetchOnePageNewsHeaders(0),
-      this.fetchOnePageNewsHeaders(1),
-      this.fetchOnePageNewsHeaders(2),
-    ]);
+    const results: KhoeNewsHeaderItem[][] = [];
+    for (const pageNumber of [0, 1, 2]) {
+      results.push(await this.fetchOnePageNewsHeaders(pageNumber));
+    }
 
     return results.flat().sort((a, b) => {
       const idA = parseInt(a.url.match(/\d+$/)?.[0] ?? '0');
@@ -105,7 +104,10 @@ export class KhoeApi {
   }
 
   async injectNewsDetails(news: KhoeNewsItem[]): Promise<KhoeNewsItem[]> {
-    const allDetails = await Promise.all(news.map((item) => this.fetchOneNewsDetails(item)));
+    const allDetails = [];
+    for (const item of news) {
+      allDetails.push(await this.fetchOneNewsDetails(item));
+    }
     log('all_news', news);
     log('all_details', allDetails);
     return news.map((newsItem: KhoeNewsItem) => {
