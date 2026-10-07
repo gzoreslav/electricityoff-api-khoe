@@ -271,7 +271,14 @@ async function fetchWithUkrProxy(url: string, method: string = 'GET', options = 
 
   const axiosCall = getAxiosMethod(method);
 
-  return axiosCall(url, options);
+  return axiosCall(url, {
+    timeout: 20000,
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (compatible; ElectricityOff/1.0)',
+      Accept: 'text/html',
+    },
+    ...options,
+  });
 }
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

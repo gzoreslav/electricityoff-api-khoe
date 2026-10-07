@@ -3,7 +3,7 @@ import * as cheerio from 'cheerio';
 import { fetchWithUkrProxy, log } from '../../common/utils';
 import axios from 'axios';
 
-const BASE_URL = 'https://www.oblenergo.kharkov.ua';
+const BASE_URL = 'https://oblenergo.kharkiv.ua';
 
 // Uncomment intercepros for network requests debugging
 // // Using axios interceptors
