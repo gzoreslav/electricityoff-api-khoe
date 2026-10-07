@@ -272,10 +272,12 @@ async function fetchWithUkrProxy(url: string, method: string = 'GET', options = 
   const axiosCall = getAxiosMethod(method);
 
   return axiosCall(url, {
-    timeout: 20000,
+    timeout: 110000,
+    maxRedirects: 5,
     headers: {
-      'User-Agent': 'Mozilla/5.0 (compatible; ElectricityOff/1.0)',
-      Accept: 'text/html',
+      'User-Agent':
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      Accept: 'text/html,application/xhtml+xml',
     },
     ...options,
   });
