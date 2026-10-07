@@ -1,0 +1,36 @@
+{
+  "name": "electricityoff-api-khoe",
+  "description": "API for ElectricityOff \u2014 Kharkiv (KHOE)",
+  "version": "1.0.0",
+  "engines": {
+    "node": "24.x"
+  },
+  "main": "api/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node api/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gzoreslav/electricityoff-api-khoe.git"
+  },
+  "author": "Zoreslav Goral",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gzoreslav/electricityoff-api-khoe/issues"
+  },
+  "homepage": "https://github.com/gzoreslav/electricityoff-api-khoe#readme",
+  "dependencies": {
+    "axios": "^1.13.2",
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "moment-timezone": "^0.5.45",
+    "telegram": "^2.22.2",
+    "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.6"
+  }
+}
