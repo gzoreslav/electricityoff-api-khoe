@@ -252,6 +252,8 @@ const getAxiosMethod = (method: string) => {
   }
 };
 
+const LEGACY_HTML_PROXY = 'https://eoff.vercel.app/get-html';
+
 async function fetchWithUkrProxy(url: string, method: string = 'GET', options = {}) {
   const ukrProxyUrl = config.ukrProxy.url;
   const ukrProxyApiKey = config.ukrProxy.apiKey;
@@ -261,6 +263,7 @@ async function fetchWithUkrProxy(url: string, method: string = 'GET', options = 
       ukrProxyUrl,
       { url, method },
       {
+        timeout: 110000,
         headers: {
           'x-api-key': ukrProxyApiKey,
           'Content-Type': 'application/json',
@@ -269,16 +272,10 @@ async function fetchWithUkrProxy(url: string, method: string = 'GET', options = 
     );
   }
 
-  const axiosCall = getAxiosMethod(method);
-
-  return axiosCall(url, {
+  const proxyUrl = `${LEGACY_HTML_PROXY}?useProxy=1&url=${encodeURIComponent(url)}`;
+  return axios.get(proxyUrl, {
     timeout: 110000,
-    maxRedirects: 5,
-    headers: {
-      'User-Agent':
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-      Accept: 'text/html,application/xhtml+xml',
-    },
+    responseType: 'text',
     ...options,
   });
 }
